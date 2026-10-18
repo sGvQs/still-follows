@@ -1,0 +1,40 @@
+name: Plan
+
+on:
+  pull_request:
+    branches: [main] # main をターゲットにした PR で実行（opened / synchronize）
+
+permissions:
+  contents: read
+
+jobs:
+  # 注意: ブランチ保護の必須チェック名として使われることがあるため、job id / name は変更しない
+  plan:
+    name: plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22 # Vite 8 は node ^20.19.0 || >=22.12.0 が必要
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        # build スクリプトは tsc を含むため tsc --noEmit は不要
+        run: npm run build
+        env:
+          SITE_URL: https://example.com/sub/ # 固定ダミー
+
+      - name: Verify dist
+        # 補足: 今後 canonical と SITE_URL の一致検証を追加する余地がある
+        run: |
+          grep -Eq '(src|href)="/sub/assets/' dist/index.html

@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時デプロイを防ぐ（直近のデプロイをキャンセルしない）
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22 # Vite 8 は node ^20.19.0 || >=22.12.0 が必要
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 公開前の最終確認としてテストを実行する
+      - name: Test
+        run: npm test
+
+      # リポジトリ変数 SITE_URL が未設定のときの暫定値（設定済みなら変数を優先）
+      - name: Resolve SITE_URL
+        env:
+          VAR_SITE_URL: ${{ vars.SITE_URL }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+        run: |
+          if [ -n "$VAR_SITE_URL" ]; then
+            echo "SITE_URL=$VAR_SITE_URL" >> "$GITHUB_ENV"
+          else
+            echo "SITE_URL=https://${OWNER,,}.github.io/${REPO}/" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build
+        # base は環境変数 SITE_URL から vite.config.ts が導出する
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
