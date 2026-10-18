@@ -2,7 +2,7 @@
 
 シンプルなブラウザタイピングゲーム。PC専用です。
 
-プレイはこちら: https://stillfollows.com
+プレイはこちら: https://www.stillfollows.com
 
 A short typing game in the browser. PC only.
 
