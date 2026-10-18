@@ -1,4 +1,4 @@
-# デザインシステム（STILL FOLLOWS / bug buster）
+# デザインシステム（STILL FOLLOWS）
 
 色、ボタン、フォント、ASCII アートのデザイン上の決まりをまとめたもの。値の出典は `src/game/config.ts`、`src/styles.css`、`src/components/Button.tsx`、`index.html`。
 
@@ -12,7 +12,8 @@
 | 文字・線・反転時の背景 | `#ffffff` | `--color-fg` / `COLOR_FG` |
 | 補助文字（薄い白） | `rgba(255,255,255,0.7)` | `--color-dim` / `COLOR_DIM` |
 
-- 変化は「青白の反転」（背景と文字色の入れ替え）で見せる。
+- 反転時は背景色と文字色を入れ替える（青地に白文字を、白地に青文字にする）。
+- 反転時に入力済みの文字（`Topic.tsx`）は、青を `opacity: 0.7` で薄くする。白の透過ではなく、青の透過。
 - 色は `config.ts` と `styles.css` の両方に同じ値で定義している。変えるときは両方を直す。
 - 画像・写真・影・グラデーション・角丸は使わない。
 - favicon（`public/favicon.svg` など）と OGP 画像は UI の外にある例外。色は青 `#1a4a8a` と白。
@@ -25,7 +26,7 @@
   - normal: 文字 10px、padding 4px 12px。補助の操作に使う。
   - large: 文字 14px、padding 8px 20px。主要な操作に使う。
 - 共通: 透明背景、白文字、1px の補助色（`--color-dim`）の枠線、角丸なし、フォントは Press Start 2P（`FONT_EN`）。
-- ホバー／キーボードフォーカス: 白地・青文字の反転（transition なしで瞬時）。
+- ホバー／キーボードフォーカス: 白地・青文字の反転。枠線も青（`--color-bg`）になる（transition なしで瞬時）。
 - 色・枠線・カーソル・ホバー反転は `styles.css` の `.btn` に集約する。
 - ラベルは英字のみ。
 
@@ -40,7 +41,7 @@
 | ASCII アート | 等幅（Menlo, Consolas, "Courier New", monospace） | `FONT_MONO` |
 
 - 1 つの文字列に日本語と英字が混ざる場合は、文字種ごとにフォントを振り分ける。
-- 原則として太字・斜体は使わない。例外はタイトル画面の日本語サブタイトルのみで、`FONT_JP`・18px を太字（`fontWeight: 'bold'`）で表示する。斜体の使用箇所はない。
+- 原則として太字・斜体は使わない。例外は 2 つ。(1) タイトル画面の日本語サブタイトル（`FONT_JP`・18px、`fontWeight: 'bold'`）。(2) JavaScript 無効時だけ表示される `index.html` の `<noscript>` 内の見出し `<h1>`。`.noscript-overlay h1` が font-weight を指定していないため、ブラウザ既定の太字になる。タイトル画面の `<h1>` は `fontWeight: 'normal'` を明示しており太字ではない。斜体の使用箇所はない。
 - ボタンの文字は常に Press Start 2P。
 
 ## 4. ASCII アート
