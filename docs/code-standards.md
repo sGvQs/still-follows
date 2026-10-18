@@ -154,7 +154,7 @@ blue-screen-typing-game/
 ├── index.html              # メインページ
 ├── package.json            # 依存関係・スクリプト定義
 ├── vite.config.ts          # ビルド設定（SITE_URL から base を導出）
-├── public/                 # 静的ファイル（favicon、apple-touch-icon。OGP画像 ogp.png は未配置）
+├── public/                 # 静的ファイル（favicon、apple-touch-icon。OGP画像 ogp.png は配置済み）
 ├── src/seo/                # SEO ロジック（SITE_URL 検証、base 導出、index.html への反映）とテスト
 ├── src/
 │   ├── styles.css          # 全スタイル定義（インラインスタイルの唯一のソース）
