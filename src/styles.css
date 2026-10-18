@@ -1,0 +1,91 @@
+/* STILL FOLLOWS — 青背景・白文字（値は src/game/config.ts の COLOR_* と同じ） */
+:root {
+  --color-bg: #1a4a8a;
+  --color-fg: #ffffff;
+  --color-dim: rgba(255, 255, 255, 0.7);
+  --font-mono: Menlo, Consolas, "Courier New", monospace;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: 'DotGothic16';
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: 'DotGothic16';
+  user-select: none;
+}
+
+/* 開始前の WARNING の帯。青白反転で点滅（steps(1) で瞬時に切り替え）。枠線は反転中も帯の輪郭を残す */
+.warning-band {
+  /* 暫定: 枠線を透明にしている。戻すには border-color を var(--color-fg) に */
+  border: 2px solid transparent;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  /* 暫定: 点滅を止めている。戻すにはここを有効にする（下の行のコメントを外す） */
+  /* animation: warning-blink 0.3s steps(1) infinite; */
+}
+
+@keyframes warning-blink {
+  /* 0% は静止時の基準（青地・白文字）と同じ。50% で反転（白地・青文字） */
+  0% { background: var(--color-bg); color: var(--color-fg); }
+  50% { background: var(--color-fg); color: var(--color-bg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .warning-band { animation: none; }
+}
+
+/* 共通 Button。ホバー／キーボードフォーカスで青白反転（transition なしで瞬時に切り替え） */
+.btn {
+  border: 1px solid var(--color-dim);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--color-fg);
+  color: var(--color-bg);
+  border-color: var(--color-bg);
+}
+
+/* JS無効時のみ表示される noscript 用の説明 */
+.noscript-overlay {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  padding: 24px;
+  box-sizing: border-box;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  line-height: 1.8;
+}
+
+.noscript-overlay h1 {
+  font-size: 1.4rem;
+  margin: 0 0 16px;
+}
+
+.noscript-overlay p {
+  margin: 0 0 12px;
+}
