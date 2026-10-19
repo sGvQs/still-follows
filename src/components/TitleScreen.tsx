@@ -9,9 +9,12 @@ const SUBTITLE: Record<Language, string> = {
   EN: "60 SECONDS. DON'T LET IT REACH YOU.",
 }
 
-const CREDIT_LINES = [
-  'Sound by OtoLogic',
-]
+// 規約上の表記（OtoLogic 利用規約）。消さないこと
+const SOUND_CREDIT = 'Sound by OtoLogic'
+// 制作者表記（固有名のため言語切替なし）
+const DIRECTOR_CREDIT = 'Directed & developed by sGvQs'
+
+const CREDIT_LINES = [DIRECTOR_CREDIT, SOUND_CREDIT]
 
 const screen: React.CSSProperties = {
   position: 'absolute', inset: 0, zIndex: 2, background: COLOR_BG, color: COLOR_FG, fontFamily: FONT_EN,
@@ -48,7 +51,7 @@ export function TitleScreen({ composing, muted, language, onStart, onToggleMute,
         <Button label={`LANG ${language}`} onClick={onToggleLanguage} />
         <Button label={`SOUND ${muted ? 'OFF' : 'ON'}`} onClick={onToggleMute} />
       </div>
-      <div style={{ marginTop: -10, fontSize: 8, lineHeight: 1.3, color: COLOR_DIM }}>
+      <div style={{ marginTop: -10, fontSize: 8, lineHeight: 1.3, color: COLOR_DIM , gap: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         {CREDIT_LINES.map((line) => (
           <div key={line}>{line}</div>
         ))}

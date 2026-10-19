@@ -47,7 +47,11 @@ GitHub Actions で GitHub Pages に公開します。`main` への push でテ�
 
 ## クレジット
 
-音声は OtoLogic の素材を使用しています。詳しくは [CREDITS.md](CREDITS.md) を参照してください。タイトル画面にも表記があります。
+音声は OtoLogic の素材を使用しています。詳しくは [CREDITS.md](CREDITS.md) を参照してください。
+
+制作: sGvQs（Directed & developed by sGvQs）
+
+音声と制作者の表記は、タイトル画面にもあります。
 
 ## ライセンス
 

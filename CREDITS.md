@@ -19,3 +19,7 @@ Sound by OtoLogic (https://otologic.jp)
 - `type-a.wav`
 - `type-b.wav`
 - `type-c.wav`
+
+## 制作 / Production
+
+Director & developer: sGvQs
