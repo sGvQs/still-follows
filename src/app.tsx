@@ -7,7 +7,7 @@ import { useGame } from './hooks/useGame'
 import { sound } from './sound/player'
 
 const PAGE_TITLE = {
-  JA: 'STILL FOLLOWS｜無料ブラウザタイピングゲーム',
+  JA: 'STILL FOLLOWS｜ホラータイピングゲーム',
   EN: 'STILL FOLLOWS | Free Browser Typing Game (No Install)',
 } as const
 

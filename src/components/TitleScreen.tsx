@@ -33,7 +33,7 @@ export function TitleScreen({ composing, muted, language, onStart, onToggleMute,
           {language === 'JA' ? (
             <>
               <span style={{ fontFamily: FONT_EN, fontSize: 10 }}>STILL FOLLOWS</span>
-              <span style={{ fontFamily: FONT_JP, fontSize: 12 }}> ― シンプルなタイピングゲーム</span>
+              <span style={{ fontFamily: FONT_JP, fontSize: 12 }}> ― ホラータイピングゲーム</span>
             </>
           ) : (
             <span style={{ fontFamily: FONT_EN, fontSize: 10 }}>STILL FOLLOWS - SIMPLE TYPING GAME</span>
